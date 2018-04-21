@@ -32,7 +32,7 @@ export function toArray(text, options = {}) {
     }
 
     const separator = options.size ? "/" : "";
-    const codepoint = unicodeToCodepoint(match);
+    const codepoint = options.codepoint || unicodeToCodepoint(match);
     const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
 
     return (
@@ -74,7 +74,7 @@ export function toArray(text, options = {}) {
 }
 
 export default function Emoji(
-  { text, onlyEmojiClassName, options = {}, className, ...rest }
+  { text, onlyEmojiClassName, codepoint, options = {}, className, ...rest }
 ) {
   function isOnlyEmoji(output) {
     if (output.length > 3) return false;
@@ -86,24 +86,22 @@ export default function Emoji(
     return true;
   }
 
-  console.log('options props? ', options.props)
-  // if (options.codepoint) {
-  //   const separator = options.size ? "/" : "";
-  //   const codepoint = options.codepoint || unicodeToCodepoint(match);
-  //   const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
-  //
-  //   return (
-  //     <img
-  //       key={options.codepoint}
-  //       alt={match}
-  //       src={src}
-  //       style={style}
-  //       className={options.className}
-  //       {...options.props}
-  //     />
-  //   );
-  // }
+  if (codepoint) {
+    const separator = options.size ? "/" : "";
+    const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
+    return (
+      <img
+        key={options.codepoint}
+        alt={match}
+        src={src}
+        style={style}
+        className={options.className}
+        {...options.props}
+      />
+    );
+  }
 
+  const output = toArray(text, options);
   const classes = classnames(className, {
     [onlyEmojiClassName]: isOnlyEmoji(output)
   });
@@ -117,6 +115,7 @@ export default function Emoji(
 
 Emoji.propTypes = {
   text: PropTypes.string,
+  codepoint: PropTypes.string,
   props: PropTypes.object,
   onlyEmojiClassName: PropTypes.string,
   options: PropTypes.shape({
