@@ -32,7 +32,7 @@ export function toArray(text, options = {}) {
     }
 
     const separator = options.size ? "/" : "";
-    const codepoint = options.codepoint || unicodeToCodepoint(match);
+    const codepoint = options.props.codepoint || unicodeToCodepoint(match);
     const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
 
     return (
@@ -86,14 +86,14 @@ export default function Emoji(
     return true;
   }
 
-  if (options.codepoint) {
+  if (options.props.codepoint) {
     const separator = options.size ? "/" : "";
-    const codepoint = options.codepoint;
+    const codepoint = options.props.codepoint;
     const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
 
     return (
       <img
-        key={options.codepoint}
+        key={options.props.codepoint}
         alt={match}
         src={src}
         style={style}
