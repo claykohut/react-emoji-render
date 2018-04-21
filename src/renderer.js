@@ -86,7 +86,7 @@ export default function Emoji(
     return true;
   }
 
-  if (codepoint) {
+  function getCodepoint(codepoint, options) {
     const protocol = normalizeProtocol(options.protocol);
     const separator = options.size ? "/" : "";
     const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
@@ -101,7 +101,10 @@ export default function Emoji(
     );
   }
 
-  const output = toArray(text, options);
+  const output = codepoint
+    ? getCodepoint(codepoint, options)
+    : toArray(text, options);
+
   const classes = classnames(className, {
     [onlyEmojiClassName]: isOnlyEmoji(output)
   });
