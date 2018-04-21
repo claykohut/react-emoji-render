@@ -87,6 +87,7 @@ export default function Emoji(
   }
 
   if (codepoint) {
+    const protocol = normalizeProtocol(options.protocol);
     const separator = options.size ? "/" : "";
     const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
     return (
