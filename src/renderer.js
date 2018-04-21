@@ -86,7 +86,23 @@ export default function Emoji(
     return true;
   }
 
-  const output = toArray(text, options);
+  if (options.codepoint) {
+    const separator = options.size ? "/" : "";
+    const codepoint = options.codepoint;
+    const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
+
+    return (
+      <img
+        key={options.codepoint}
+        alt={match}
+        src={src}
+        style={style}
+        className={options.className}
+        {...options.props}
+      />
+    );
+  }
+
   const classes = classnames(className, {
     [onlyEmojiClassName]: isOnlyEmoji(output)
   });
