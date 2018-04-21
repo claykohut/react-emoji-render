@@ -32,7 +32,7 @@ export function toArray(text, options = {}) {
     }
 
     const separator = options.size ? "/" : "";
-    const codepoint = options.codepoint || unicodeToCodepoint(match);
+    const codepoint = unicodeToCodepoint(match);
     const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
 
     return (
