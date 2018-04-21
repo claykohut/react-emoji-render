@@ -93,7 +93,6 @@ export default function Emoji(
     return (
       <img
         key={options.codepoint}
-        alt={match}
         src={src}
         style={style}
         className={options.className}
