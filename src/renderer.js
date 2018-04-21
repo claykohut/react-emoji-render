@@ -32,7 +32,7 @@ export function toArray(text, options = {}) {
     }
 
     const separator = options.size ? "/" : "";
-    const codepoint = options.props.codepoint || unicodeToCodepoint(match);
+    const codepoint = options.codepoint || unicodeToCodepoint(match);
     const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
 
     return (
@@ -86,22 +86,23 @@ export default function Emoji(
     return true;
   }
 
-  if (options.props.codepoint) {
-    const separator = options.size ? "/" : "";
-    const codepoint = options.props.codepoint;
-    const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
-
-    return (
-      <img
-        key={options.props.codepoint}
-        alt={match}
-        src={src}
-        style={style}
-        className={options.className}
-        {...options.props}
-      />
-    );
-  }
+  console.log('options props? ', options.props)
+  // if (options.codepoint) {
+  //   const separator = options.size ? "/" : "";
+  //   const codepoint = options.codepoint || unicodeToCodepoint(match);
+  //   const src = `${protocol}${options.baseUrl}${options.size}${separator}${codepoint}.${options.ext}`;
+  //
+  //   return (
+  //     <img
+  //       key={options.codepoint}
+  //       alt={match}
+  //       src={src}
+  //       style={style}
+  //       className={options.className}
+  //       {...options.props}
+  //     />
+  //   );
+  // }
 
   const classes = classnames(className, {
     [onlyEmojiClassName]: isOnlyEmoji(output)
